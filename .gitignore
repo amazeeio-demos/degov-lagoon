@@ -1,0 +1,21 @@
+## Ignore IDE
+.idea
+/bin
+/docroot/**/
+/docroot/.*
+/docroot/*.php
+/docroot/*.txt
+/docroot/*.config
+!/docroot/modules/
+!/docroot/themes/
+!/docroot/profiles/
+!/docroot/**/custom/
+!/docroot/**/custom/**/
+!/docroot/**/custom/**/**/
+!/docroot/**/custom/**/**/**
+/vendor
+/drush
+/.editorconfig
+/.gitattributes
+.DS_Store
+/behat.yml

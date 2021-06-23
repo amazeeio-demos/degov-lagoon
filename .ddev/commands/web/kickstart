@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+## Description: Imports a database dump as kickstart to develop for deGov. Optional without demo content.
+## Usage: kickstart [--no-demo]
+## Example: "ddev kickstart or ddev kickstart --no-demo"
+
+_info() {
+  local color_info="\\x1b[32m"
+  local color_reset="\\x1b[0m"
+  echo -e "$(printf '%s%s%s\n' "$color_info" "$@" "$color_reset")"
+}
+
+_drush() {
+  COLUMNS=$(tput cols 2>/dev/null) /var/www/html/bin/drush --yes --ansi "$@"
+}
+
+main() {
+  DEMO=1
+  while :; do
+    case "${1:-}" in
+    -h | -\? | --help)
+      show_help
+      exit
+      ;;
+    --no-demo)
+      unset DEMO
+      ;;
+
+    --) # End of all options.
+      shift
+      break
+      ;;
+    -?*)
+      printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+      ;;
+    *) # Default case: No more options, so break out of the loop.
+      break ;;
+    esac
+
+    shift
+  done
+
+  if [[ -n "${DEMO:-}" ]]; then
+    _info "Start installation with demo content"
+  else
+    _info "Start installation without demo content"
+  fi
+  if [[ ! -d /var/www/html/vendor ]]; then
+      composer install --ignore-platform-reqs --working-dir=/var/www/html
+  fi
+  cd /var/www/html/docroot
+  DB_DUMP="degov-stable-9.0.4"
+  rm -rf sites/default/files/*
+  if [[ ! -f sites/default/settings.local.php ]];then
+    cp sites/default/settings.local.php.dist sites/default/settings.local.php
+  fi
+
+  _drush sql-drop
+  mkdir -p sites/default/files/{private,translations,sync}
+  mkdir -p sites/default/files/media-icons/generic
+  cp modules/contrib/media_entity_instagram/images/icons/instagram.png sites/default/files/media-icons/generic/
+  cp modules/contrib/media_entity_twitter/images/icons/twitter.png sites/default/files/media-icons/generic/
+  cp core/modules/media/images/icons/* sites/default/files/media-icons/generic/
+  cp profiles/contrib/degov/modules/lightning_media/images/star.png sites/default/files/
+  cp "profiles/contrib/degov/testing/lfs_data/$DB_DUMP.sql.gz" /tmp/db.sql.gz &&
+    _drush sql-query --file="/tmp/db.sql.gz" &&
+    _drush watchdog:delete all &&
+    _drush updb &&
+    ${DEMO:+_drush config:set geocoder.settings geocoder_presave_disabled 1} &&
+    ${DEMO:+_drush en degov_demo_content} &&
+    _drush cr &&
+    _drush locale-check &&
+    _drush locale-update
+}
+
+main "$@"

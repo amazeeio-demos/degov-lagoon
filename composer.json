@@ -1,0 +1,196 @@
+{
+    "name": "degov/degov-project",
+    "description": "Drupal 8 for Government (Drupal 8 für die öffentliche Verwaltung)",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.3",
+        "amazeeio/drupal_integrations": "^0.3.5",
+        "composer/installers": "^1.11",
+        "degov/degov": "~9.1.1"
+    },
+    "require-dev": {
+        "behat/behat": "~3.8.1",
+        "behat/mink": "~1.8.1",
+        "behat/mink-goutte-driver": "~1.2.1",
+        "consolidation/robo": "~1.4.13",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+        "degov/degov_devel_git_lfs": "dev-release/9.1.x",
+        "drupal/coder": "^8.3",
+        "drupal/config_inspector": "^1.3",
+        "drupal/devel": "^4.1",
+        "drupal/drupal-extension": "^4.0",
+        "drupal/error_log": "^1.5",
+        "drupal/stage_file_proxy": "^1.1",
+        "drupal/twig_xdebug": "^1.0",
+        "drush/drush": "^10.5",
+        "jangregor/phpstan-prophecy": "~0.8.1",
+        "mglaman/phpstan-drupal": "^0.12.10",
+        "mikey179/vfsstream": "~1.6.8",
+        "phpcompatibility/php-compatibility": "~9.3.5",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/extension-installer": "~1.1.0",
+        "phpstan/phpstan-deprecation-rules": "~0.12.6",
+        "phpstan/phpstan-phpunit": "^0.12.18",
+        "phpunit/phpunit": "^9.5",
+        "publicplan/phpcs-sniffs": "^1.0",
+        "rector/rector": "^0.11.1",
+        "symfony/phpunit-bridge": "^5.2"
+    },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        "degov_devel_git_lfs": {
+            "type": "git",
+            "url": "https://bitbucket.org/publicplan/degov_devel_git_lfs.git"
+        },
+        "dropzone": {
+            "type": "package",
+            "package": {
+                "name": "enyo/dropzone",
+                "version": "4.3.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/dropzone/dropzone/archive/v4.3.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        "shariff": {
+            "type": "package",
+            "package": {
+                "name": "heiseonline/shariff",
+                "version": "2.1.3",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/heiseonline/shariff/releases/download/2.1.3/shariff-2.1.3.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        "slick": {
+            "type": "package",
+            "package": {
+                "name": "kenwheeler/slick",
+                "version": "1.8.1+11",
+                "type": "drupal-library",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/kenwheeler/slick",
+                    "reference": "9c55b531245e8c866324652a353bead23f9721a0"
+                }
+            }
+        },
+        "hyphenopoly": {
+            "type": "package",
+            "package": {
+                "name": "mnater/hyphenopoly",
+                "version": "v4.11.0",
+                "type": "drupal-library",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/mnater/hyphenopoly/archive/v4.11.0.zip"
+                }
+            }
+        },
+        "leaflet": {
+            "type": "package",
+            "package": {
+                "name": "leaflet/leaflet",
+                "version": "1.5.1",
+                "type": "drupal-library",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/Leaflet/Leaflet/archive/v1.5.1.zip"
+                }
+            }
+        },
+        "cropper": {
+            "type": "package",
+            "package": {
+                "name": "fengyuanchen/cropper",
+                "version": "3.1.3",
+                "type": "drupal-library",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/fengyuanchen/cropper/archive/v3.1.3.zip"
+                }
+            }
+        },
+        "phpcs-sniffs-library": {
+            "type": "git",
+            "url": "https://bitbucket.org/publicplan/phpcs-sniffs.git"
+        }
+    },
+    "scripts": {
+        "php:cs": "phpcs -p -s",
+        "php:cs-fix": "phpcbf",
+        "php:compatibility": "phpcs -p -s --standard=phpcompatibility.xml",
+        "php:phpstan": "phpstan analyse --ansi",
+        "php:rector" : "rector --ansi process --config rector.php"
+    },
+    "config": {
+        "bin-dir": "bin/",
+        "sort-packages": true
+    },
+    "extra": {
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "drupal-scaffold": {
+            "allowed-packages": [
+                "amazeeio/drupal_integrations"
+            ],
+            "locations": {
+                "web-root": "docroot/"
+            },
+            "file-mapping": {
+                "[web-root]/example.gitignore": false,
+                "[web-root]/INSTALL.txt": false,
+                "[web-root]/README.txt": false,
+                "[web-root]/.gitignore": false,
+                "[web-root]/sites/README.txt": false,
+                "[web-root]/modules/README.txt": false,
+                "[web-root]/profiles/README.txt": false,
+                "[web-root]/themes/README.txt": false,
+                "[web-root]/sites/development.services.yml": {
+                    "mode": "replace",
+                    "path": "assets/development.services.yml",
+                    "overwrite": false
+                },
+                "[web-root]/robots.txt": {
+                    "append": "assets/robots-additions.txt"
+                }
+            }
+        },
+        "installer-paths": {
+            "docroot/libraries/dropzone": ["enyo/dropzone"],
+            "docroot/profiles/contrib/degov/testing/lfs_data": ["degov/degov_devel_git_lfs"],
+            "docroot/core": ["type:drupal-core"],
+            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
+            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/contrib/{$name}": ["type:drupal-drush"],
+            "docroot/libraries/{$name}": ["type:drupal-library"]
+        },
+        "enable-patching": true,
+        "composer-exit-on-patch-failure": true
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\degov\\Behat\\Context\\": "docroot/profiles/contrib/degov/testing/behat/context/",
+            "Drupal\\degov\\Behat\\Context\\Traits\\": "docroot/profiles/contrib/degov/testing/behat/context/Traits/",
+            "Drupal\\Tests\\Behat\\Context\\": "docroot/profiles/contrib/degov/testing/behat/context",
+            "Drupal\\degov_behat_extension\\BehatContext\\": "docroot/profiles/contrib/degov/modules/degov_behat_extension/src/BehatContext",
+            "Drupal\\Tests\\lightning_media\\": "docroot/profiles/contrib/degov/modules/lightning_media/tests/src",
+            "degov\\Scripts\\Robo\\": "docroot/profiles/contrib/degov/scripts/Robo"
+        },
+        "classmap": [
+            "docroot/profiles/contrib/degov/modules/lightning_core/tests/contexts/AwaitTrait.inc"
+        ]
+    }
+}

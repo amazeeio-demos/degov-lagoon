@@ -1,0 +1,6 @@
+name: degov-lagoon
+recipe: lagoon
+config:
+  flavor: drupal
+  build:
+    - composer install

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+    <description>PHP CodeSniffer configuration for deGov.</description>
+
+    <file>docroot/profiles/contrib/degov/</file>
+
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="inc,install,module,php,profile,theme,yml"/>
+    <arg name="colors"/>
+    <arg name="parallel" value="75"/>
+    <arg value="np"/>
+
+    <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+        <exclude name="Drupal.Files.TxtFileLineLength" />
+        <exclude name="Drupal.Commenting.Deprecated" />
+        <exclude name="Drupal.Semantics.FunctionTriggerError" />
+        <exclude name="Drupal.Commenting.DocComment" />
+        <exclude name="Drupal.Commenting.FunctionComment" />
+        <exclude name="Drupal.Arrays.Array.LongLineDeclaration" />
+    </rule>
+
+    <rule ref="vendor/publicplan/phpcs-sniffs/src/MixedDatatype/Sniffs">
+    </rule>
+  <exclude-pattern>docroot/profiles/contrib/degov/modules/forks/*</exclude-pattern>
+</ruleset>

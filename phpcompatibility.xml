@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<ruleset name="PHP_CodeSniffer_PHP_Compatibility" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+    <file>docroot/profiles/contrib/degov/</file>
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="inc,install,module,php,profile,theme"/>
+
+    <!-- Run against the PHPCompatibility ruleset -->
+    <rule ref="PHPCompatibility"/>
+    <!-- Check for cross-version support for PHP 7.3 and higher. -->
+    <config name="testVersion" value="7.3-"/>
+</ruleset>

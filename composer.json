@@ -164,6 +164,9 @@
                 },
                 "[web-root]/robots.txt": {
                     "append": "assets/robots-additions.txt"
+                },
+                "file-mapping": {
+                    "[web-root]/sites/default/all.settings.php": "assets/all.settings.php"
                 }
             }
         },
